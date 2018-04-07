@@ -32,7 +32,7 @@ public class App {
     public static void main(String[] args) {
         final AmazonDynamoDB dynamo = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new SystemPropertiesCredentialsProvider()).withEndpointConfiguration(
-                        new EndpointConfiguration("http://localhost:8008", Regions.DEFAULT_REGION.name()))
+                        new EndpointConfiguration("http://localhost:4569", Regions.DEFAULT_REGION.name()))
                 .build();
 
         final CreateTableRequest createTable = new CreateTableRequest().withTableName(TABLE_NAME)
@@ -58,18 +58,18 @@ public class App {
         Map<String, AttributeValue> item = new HashMap<>();
         item.put(ATTR_ID, new AttributeValue().withS("id-1"));
         item.put(ATTR_VAL, new AttributeValue().withS("val-1"));
-        long ttl = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(1);
+        long ttl = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + 1;
         System.out.println(ttl);
         item.put(ATTR_TTL, new AttributeValue().withN(String.valueOf(ttl)));
-        // dynamo.putItem(TABLE_NAME, item);
-        sleep();
+        dynamo.putItem(TABLE_NAME, item);
+        // sleep();
 
         item = new HashMap<>();
         item.put(ATTR_ID, new AttributeValue().withS("id-1"));
         GetItemResult res = dynamo.getItem(TABLE_NAME, item);
         if (res != null) {
             res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
-            System.out.println(System.currentTimeMillis());
+            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
         } else {
             System.out.println("no data");
         }
@@ -80,7 +80,7 @@ public class App {
         res = dynamo.getItem(TABLE_NAME, item);
         if (res != null) {
             res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
-            System.out.println(System.currentTimeMillis());
+            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
         } else {
             System.out.println("no data");
         }
@@ -90,7 +90,37 @@ public class App {
         res = dynamo.getItem(TABLE_NAME, item);
         if (res != null) {
             res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
-            System.out.println(System.currentTimeMillis());
+            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+        } else {
+            System.out.println("no data");
+        }
+        sleep();
+        sleep();
+        sleep();
+        res = dynamo.getItem(TABLE_NAME, item);
+        if (res != null) {
+            res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
+            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+        } else {
+            System.out.println("no data");
+        }
+        sleep();
+        sleep();
+        sleep();
+        res = dynamo.getItem(TABLE_NAME, item);
+        if (res != null) {
+            res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
+            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+        } else {
+            System.out.println("no data");
+        }
+        sleep();
+        sleep();
+        sleep();
+        res = dynamo.getItem(TABLE_NAME, item);
+        if (res != null) {
+            res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
+            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
         } else {
             System.out.println("no data");
         }
