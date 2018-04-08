@@ -66,6 +66,13 @@ public class App {
 
         item = new HashMap<>();
         item.put(ATTR_ID, new AttributeValue().withS("id-1"));
+
+        for (int i = 0; i < 10; i++) {
+            checkAndWait(dynamo, item);
+        }
+    }
+
+    private static void checkAndWait(final AmazonDynamoDB dynamo, Map<String, AttributeValue> item) {
         GetItemResult res = dynamo.getItem(TABLE_NAME, item);
         if (res != null) {
             res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
@@ -76,54 +83,6 @@ public class App {
         sleep();
         sleep();
         sleep();
-
-        res = dynamo.getItem(TABLE_NAME, item);
-        if (res != null) {
-            res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
-            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-        } else {
-            System.out.println("no data");
-        }
-        sleep();
-        sleep();
-        sleep();
-        res = dynamo.getItem(TABLE_NAME, item);
-        if (res != null) {
-            res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
-            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-        } else {
-            System.out.println("no data");
-        }
-        sleep();
-        sleep();
-        sleep();
-        res = dynamo.getItem(TABLE_NAME, item);
-        if (res != null) {
-            res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
-            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-        } else {
-            System.out.println("no data");
-        }
-        sleep();
-        sleep();
-        sleep();
-        res = dynamo.getItem(TABLE_NAME, item);
-        if (res != null) {
-            res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
-            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-        } else {
-            System.out.println("no data");
-        }
-        sleep();
-        sleep();
-        sleep();
-        res = dynamo.getItem(TABLE_NAME, item);
-        if (res != null) {
-            res.getItem().values().stream().forEach(v -> System.out.println(v.getS() != null ? v.getS() : v.getN()));
-            System.out.println(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-        } else {
-            System.out.println("no data");
-        }
     }
 
     private static void sleep() {
